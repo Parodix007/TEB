@@ -38,11 +38,31 @@
               <div class="alert">
                 <?php
                   $message = "<p class='alert alert-info'>Wprowadz dane</p>";
-                  if($_GET["ID"] && $_GET["Person"] && is_numeric($_GET["ID"]) && strlen($_GET["ID"]) == 6 && intval($_GET["ID"]) % 7 == 0){
+                  /*if($_GET["ID"] && $_GET["Person"] && is_numeric($_GET["ID"]) && strlen($_GET["ID"]) == 6 && intval($_GET["ID"]) % 7 == 0){
                     echo $message = "<p class='alert alert-success'>Oddany glos</p>";
                   }else{
                     echo $message;
                   }
+                  */
+
+                  function dbHandle($x, $y){
+                    $dbconn = mysqli_connect("localhost", "sebastian", "dupadupa", "sebastian_") or die("<p class='alert alert-danger'><span class='alert-heading'>Blad...</span></p>");
+
+                    $kwerenda = "INSERT INTO _vote (voter_id, choosenOption) VALUES ('$x', '$y')";
+
+                    if(mysqli_query($dbconn, $kwerenda)){
+                      echo "<p class='alert alert-success'><span class='alert-heading'>GLOS ODDANY DZIEKUJEMY!</span></p>";
+                    }else{
+                      echo "<p class='alert alert-danger'><span class='alert-heading'>Cos poszlo nie tak...</span></p>";
+                    }
+                    mysqli_close($dbconn);
+                  };
+
+                  if($_GET["ID"] && $_GET["Person"]){
+                    return dbHandle($_GET["ID"], $_GET["Person"]);
+                  }else{
+                    echo $message;
+                  };
                  ?>
               </div>
             </section>
