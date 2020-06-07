@@ -30,3 +30,13 @@ body{
 h1{
   text-align: center;
 }
+
+form > div:nth-child(2){
+  display: flex;
+  justify-content: space-around;
+}
+
+form > div:last-child{
+  display: flex;
+  justify-content: space-around;
+}

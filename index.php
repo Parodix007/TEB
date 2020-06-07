@@ -1,5 +1,6 @@
-
-
+<?php 
+  session_start();
+?>
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
@@ -17,53 +18,44 @@
         <article class="row">
             <section class="col">
               <h1>Glosowanie na przewodniczacego</h1>
-              <form class="form-group" method="GET" action="">
+              <form class="form-group" method="POST" action="glos.php">
                 <div>
                   <input type="number" placeholder="Wpisz ID..." class="form-control" name="ID" />
                 </div>
                 <div>
                   <div class="form-check">
                     <input class="form-check-input" type="radio" name="Person" id="option1" value="Adam">
-                    <label class="form-check-label" for="Option1">Adam</label>
+                    <label class="form-check-label" for="option1">Adam</label>
                   </div>
-                  <div>
-                    <input class="from-check-input" type="radio" name="Person" id="option2" value="Jan">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="Person" id="option2" value="Jan">
                     <label class="form-check-label" for="option2">Jan</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="Person" id="option2" value="Jan">
+                    <label class="form-check-label" for="option2">Sergiusz</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="Person" id="option2" value="Jan">
+                    <label class="form-check-label" for="option2">Arek</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="Person" id="option2" value="Jan">
+                    <label class="form-check-label" for="option2">Mateusz</label>
                   </div>
                 </div>
                 <div>
-                  <button type="submit" class="btn btn-success">Glosuj</button>
+                  <button type="submit" class="btn btn-success" disabled>Glosuj</button>
+                  <a href="wyniki.phtml" target="blank" class="btn btn-link">Wyniki</a>
                 </div>
               </form>
               <div class="alert">
-                <?php
-                  $message = "<p class='alert alert-info'>Wprowadz dane</p>";
-                  /*if($_GET["ID"] && $_GET["Person"] && is_numeric($_GET["ID"]) && strlen($_GET["ID"]) == 6 && intval($_GET["ID"]) % 7 == 0){
-                    echo $message = "<p class='alert alert-success'>Oddany glos</p>";
-                  }else{
-                    echo $message;
-                  }
-                  */
-
-                  function dbHandle($x, $y){
-                    $dbconn = mysqli_connect("localhost", "sebastian", "dupadupa", "sebastian_") or die("<p class='alert alert-danger'><span class='alert-heading'>Blad...</span></p>");
-
-                    $kwerenda = "INSERT INTO _vote (voter_id, choosenOption) VALUES ('$x', '$y')";
-
-                    if(mysqli_query($dbconn, $kwerenda)){
-                      echo "<p class='alert alert-success'><span class='alert-heading'>GLOS ODDANY DZIEKUJEMY!</span></p>";
-                    }else{
-                      echo "<p class='alert alert-danger'><span class='alert-heading'>Cos poszlo nie tak...</span></p>";
+                  <?php 
+                    if(isset($_SESSION['mess'])){
+                      echo $_SESSION['mess'];
+                      session_unset();
                     }
-                    mysqli_close($dbconn);
-                  };
-
-                  if($_GET["ID"] && $_GET["Person"]){
-                    return dbHandle($_GET["ID"], $_GET["Person"]);
-                  }else{
-                    echo $message;
-                  };
-                 ?>
+                  ?>
               </div>
             </section>
         </article>
@@ -71,5 +63,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script src="index.js"></script>
 </body>
 </html>

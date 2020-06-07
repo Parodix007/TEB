@@ -1,0 +1,51 @@
+<?php 
+    session_start();
+?>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:600&display=swap" rel="stylesheet">
+    <title>Wyniki glosowania</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class='jumbotron jumbotron-fluid my-3'>
+                    <div class='container'>
+                        <h1 class='display-2'>Oddane Głosy</h1>
+                        <p class='lead'>Tabela pokazująca oddane głosy w głosowaniu</p>
+                    </div>
+                </div>
+                <table class="table">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Glosujacy</th>
+                            <th>Glos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php 
+                            $conn = mysqli_connect("localhost", "sebastian", "dupadupa", "sebastian_") or die("<p class='alert alert-danger'><span class='alert-heading'>Blad...</span></p>");
+                            $kwe = "SELECT * FROM _vote";
+                            $que = mysqli_query($conn, $kwe) or die("<p class='alert alert-danger'><span class='alert-heading'>Blad zapytania...</span></p>");
+                            
+                            if(mysqli_num_rows($que) == 0){
+                                echo "<div><p class='alert alert-danger'><span class='alert-heading'>BRAK ODDANYCH GLOSOW</span></p></div>";
+                            }else{
+                                while($x = mysqli_fetch_assoc($que)){
+                                    echo "<tr><th scope='row'>".$x['id']."<td>".$x['voter_id']."</td><td>".$x['choosenOption']."</td></th></tr>";
+                                }
+                            }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
