@@ -21,28 +21,18 @@
               <form class="form-group" method="POST" action="glos.php">
                 <div>
                   <input type="number" placeholder="Wpisz ID..." class="form-control" name="ID" />
+                    <p class="valid-feedback"></p>
+                    <p class="invalid-feedback"></p>
                 </div>
                 <div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" name="Person" id="option1" value="Adam">
-                    <label class="form-check-label" for="option1">Adam</label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" name="Person" id="option2" value="Jan">
-                    <label class="form-check-label" for="option2">Jan</label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" name="Person" id="option2" value="Jan">
-                    <label class="form-check-label" for="option2">Sergiusz</label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" name="Person" id="option2" value="Jan">
-                    <label class="form-check-label" for="option2">Arek</label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" name="Person" id="option2" value="Jan">
-                    <label class="form-check-label" for="option2">Mateusz</label>
-                  </div>
+                  <?php 
+                    $conn = mysqli_connect('localhost', 'sebastian', 'dupadupa', 'sebastian_') or die("BLAD POLACZENIA Z SERWEREM");
+                    $kwerenda = "SELECT * FROM _startujacy";
+                    $que = mysqli_query($conn, $kwerenda) or die("BLAD KWERENDY");
+                    while($x = mysqli_fetch_assoc($que)){
+                      echo "<div class='form-check'> <input class='form-check-input' type='radio' name='Person' id='option1' value='".$x['nazwa']."'> <label class='form-check-label' for='option1'>".$x['nazwa']."</label></div>";
+                    };
+                  ?>
                 </div>
                 <div>
                   <button type="submit" class="btn btn-success" disabled>Glosuj</button>
